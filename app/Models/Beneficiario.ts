@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column, HasOne, hasOne } from '@ioc:Adonis/Lucid/Orm'
-import Usuario from './Usuario'
+import Cliente from './Cliente'
 
 export default class Beneficiario extends BaseModel {
   public static table = 'beneficiarios'
@@ -13,11 +13,8 @@ export default class Beneficiario extends BaseModel {
   @column()
   public cliente_id: number
 
-  @column()
-  public usuario_id: number
-
-  @hasOne(() => Usuario)
-  public usuario: HasOne<typeof Usuario>
+  @hasOne(() => Cliente)
+  public usuario: HasOne<typeof Cliente>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
