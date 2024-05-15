@@ -18,7 +18,7 @@ export const planValidation = {
           rules.range(0, 100), // Asumiendo que el descuento está en porcentaje (0-100)
         ]),
         precio_final: schema.number.optional([
-          rules.range(0, Infinity),
+          rules.range(0, 99999999999),
         ]),
         estado: schema.boolean.optional(),
       })

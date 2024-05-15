@@ -10,7 +10,7 @@ export const salaValidation = {
           rules.required(),
           rules.range(1, 999999999), // La capacidad debe ser mayor que cero
         ]),
-        disponibilidad: schema.boolean.optional(),
+        disponibilidad: schema.boolean(),
         sede_id: schema.number([
           rules.required(),
           rules.exists({ table: 'sedes', column: 'id' }), // Asegura que la sede exista
