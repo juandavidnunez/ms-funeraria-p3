@@ -9,7 +9,7 @@ export default class extends BaseSchema {
       table.string('contenido')
       table.integer('user_id')
       //ForeingKey
-      table.integer('chat_id').unsigned().references('chats.id').notNullable()
+      table.integer('chat_id').unsigned().references('chats.id').notNullable().onDelete('CASCADE')
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */
