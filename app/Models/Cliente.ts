@@ -4,6 +4,7 @@ import Titular from './Titular'
 import Beneficiario from './Beneficiario'
 import EjecucionServicio from './EjecucionServicio'
 import Suscripcion from './Suscripcion'
+import Usuario from './Usuario'
 
 export default class Cliente extends BaseModel {
   public static table = 'clientes'
@@ -11,22 +12,10 @@ export default class Cliente extends BaseModel {
   public id: number
 
   @column()
-  public nombre: string
-
-  @column()
-  public apellido: string
-
-  @column()
-  public cedula: string
-
-  @column()
-  public telefono: string
-
-  @column()
-  public email: string
-
-  @column()
   public usuario_id: number
+
+  @hasOne(() => Usuario)
+  public usuario: HasOne<typeof Usuario>
 
   @hasOne(() => Titular, {
     foreignKey: 'cliente_id',

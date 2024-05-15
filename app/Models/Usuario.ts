@@ -6,6 +6,22 @@ import Conductor from './Conductor'
 import Titular from './Titular'
 
 export default class Usuario extends BaseModel {
+  
+  @column()
+  public nombre: string
+  
+  @column()
+  public apellido: string
+
+  @column()
+  public edad: number
+
+  @column()
+  public cedula: String
+
+  @column()
+  public telefono: String
+
   @column()
   public email: string
 
