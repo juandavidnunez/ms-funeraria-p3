@@ -1,9 +1,8 @@
 import { DateTime } from 'luxon'
-import { BaseModel, HasOne, column, hasOne } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, HasMany, column, hasMany} from '@ioc:Adonis/Lucid/Orm'
 import Administrador from './Administrador'
 import Cliente from './Cliente'
 import Conductor from './Conductor'
-import Titular from './Titular'
 
 export default class Usuario extends BaseModel {
   
@@ -28,17 +27,20 @@ export default class Usuario extends BaseModel {
   @column()
   public password: string
 
-  @hasOne(() => Administrador)
-  public administrador: HasOne<typeof Administrador>
+  @hasMany(() => Administrador, {
+    foreignKey: 'cliente_id',
+  })
+  public administrador: HasMany<typeof Administrador>
 
-  @hasOne(() => Cliente)
-  public cliente: HasOne<typeof Cliente>
+  @hasMany(() => Cliente, {
+    foreignKey: 'cliente_id',
+  })
+  public cliente: HasMany<typeof Cliente>
 
-  @hasOne(() => Conductor)
-  public conductor: HasOne<typeof Conductor>
-
-  @hasOne(() => Titular)
-  public titular: HasOne<typeof Titular>
+  @hasMany(() => Conductor, {
+    foreignKey: 'cliente_id',
+  })
+  public conductor: HasMany<typeof Conductor>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

@@ -10,9 +10,6 @@ export default class Mensaje extends BaseModel {
   public contenido: string
 
   @column()
-  public user_id: number
-
-  @column()
   public chat_id: number
 
   @belongsTo(() => Chat, {

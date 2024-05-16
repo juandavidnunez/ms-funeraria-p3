@@ -4,11 +4,12 @@ import EjecucionServicio from './EjecucionServicio'
 import Mensaje from './Mensaje'
 
 export default class Chat extends BaseModel {
+  public static table = 'chats'
   @column({ isPrimary: true })
   public id: number
 
   @column()
-  public Eservicio_id: string
+  public Eservicio_id: number
 
   @belongsTo(() => EjecucionServicio, {
     foreignKey: 'Eservicio_id',

@@ -28,7 +28,7 @@ export default class BeneficiariosController {
     return theBeneficiario
   }
 
-  // Update a beneficiary by id
+  /* Update a beneficiary by id
 
   public async update({ params, request }: HttpContextContract) {
     const body = await request.validate(beneficiarioValidation);
@@ -38,7 +38,7 @@ export default class BeneficiariosController {
     theBeneficiario.cedula = body.cedula
     theBeneficiario.telefono = body.telefono
     return theBeneficiario.save()
-  }
+  }*/
 
   // Delete a beneficiary by id
 

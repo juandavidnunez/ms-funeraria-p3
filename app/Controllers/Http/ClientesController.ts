@@ -29,7 +29,8 @@ export default class ClientesController {
   }
 
   // Update a client by id
-
+/**
+ * 
   public async update({ params, request }: HttpContextContract) {
     const body = await request.validate(clienteValidation);
     const theCliente = await Cliente.findOrFail(params.id)
@@ -40,7 +41,7 @@ export default class ClientesController {
     theCliente.email = body.email
     return theCliente.save()
   }
-
+**/
   // Delete a client by id
 
   public async delete({ params, response }: HttpContextContract) {

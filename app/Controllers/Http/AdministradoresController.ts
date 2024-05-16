@@ -27,7 +27,7 @@ export default class AdministradoresController {
     return theAdministrador
   }
 
-  // Update an administrator by id
+  /* Update an administrator by id
 
   public async update({ params, request }: HttpContextContract) {
     const body = await request.validate(administradorValidation);
@@ -36,7 +36,7 @@ export default class AdministradoresController {
     theAdministrador.name = body.name
     theAdministrador.age = body.age
     return theAdministrador.save()
-}
+}*/
 
   // Delete an administrator by id
 

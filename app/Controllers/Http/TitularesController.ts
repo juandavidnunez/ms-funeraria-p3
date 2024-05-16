@@ -28,7 +28,7 @@ export default class TitularesController {
     return theTitular
   }
 
-  // Update an owner by id
+  /* Update an owner by id
 
   public async update({ params, request }: HttpContextContract) {
     const body = await request.validate(titularValidation)
@@ -38,7 +38,7 @@ export default class TitularesController {
     theTitular.cedula = body.cedula
     theTitular.telefono = body.telefono
     return theTitular.save()
-  }
+  }*/
 
   // Delete an owner by id
 

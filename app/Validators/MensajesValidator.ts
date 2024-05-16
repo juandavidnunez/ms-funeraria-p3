@@ -4,10 +4,12 @@ export const mensajeValidation = {
     schema: schema.create({
         contenido: schema.string({}, [
             rules.required(),
-            rules.maxLength(30)
+            rules.maxLength(3000)
           ]),
-        user_id: schema.number(),
-        chat_id: schema.number(),
+        chat_id: schema.number([
+          rules.required(),
+          rules.exists({ table: 'chats', column: 'id' }) // Asegúrate de ajustar la tabla y columna según corresponda
+        ]),
       })
       
 }

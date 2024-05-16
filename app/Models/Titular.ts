@@ -19,9 +19,6 @@ export default class Titular extends BaseModel {
   })
   public benericiarios:HasMany<typeof Beneficiario>
   
-
-
-
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
