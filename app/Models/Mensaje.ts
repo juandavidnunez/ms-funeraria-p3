@@ -3,6 +3,7 @@ import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 import Chat from './Chat'
 
 export default class Mensaje extends BaseModel {
+  public static table = 'mensajes'
   @column({ isPrimary: true })
   public id: number
 

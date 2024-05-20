@@ -5,6 +5,7 @@ import Plan from './Plan'
 import Cliente from './Cliente'
 
 export default class Suscripcion extends BaseModel {
+  public static table = 'suscripciones'
   @column({ isPrimary: true })
   public id: number
 

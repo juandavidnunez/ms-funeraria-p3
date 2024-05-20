@@ -3,6 +3,7 @@ import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 import Servicio from './Servicio'
 
 export default class Sepultura extends BaseModel {
+  public static table = 'sepulturas'
   @column({ isPrimary: true })
   public id: number
 

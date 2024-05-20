@@ -6,12 +6,13 @@ export default class extends BaseSchema {
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      table.string('nombre', 10).notNullable
-      table.integer('capacidad').notNullable
-      table.boolean('disponibilidad').notNullable
+      table.string('nombre', 10).notNullable()
+      table.integer('capacidad').notNullable()
+      table.boolean('disponibilidad').notNullable()
       //Foreing Key
-      table.integer('sedes_id').unsigned().references('sedes.id').notNullable()
-
+      table.integer('sedes_id')
+      .unsigned()
+      .references('sedes.id').onDelete('CASCADE').notNullable()
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */

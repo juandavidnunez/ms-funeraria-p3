@@ -4,6 +4,7 @@ import Ciudad from './Ciudad'
 import Sala from './Sala'
 
 export default class Sede extends BaseModel {
+  public static table = 'sedes'
   @column({ isPrimary: true })
   public id: number
 

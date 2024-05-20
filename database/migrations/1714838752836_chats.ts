@@ -8,7 +8,7 @@ export default class extends BaseSchema {
       table.increments('id')
       
       //ForeingKey
-      table.integer('Eservicio_id').unsigned().references('ejecucion_servicios.id').notNullable().onDelete('CASCADE')
+      table.integer('Ej_servicio_id').unsigned().references('ejecucion_servicios.id').notNullable().onDelete('CASCADE')
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */

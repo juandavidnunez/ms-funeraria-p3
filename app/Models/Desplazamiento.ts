@@ -4,6 +4,7 @@ import Conductor from './Conductor'
 import Feretro from './Feretro'
 
 export default class Desplazamiento extends BaseModel {
+  public static table = 'desplazamientos'
   @column({ isPrimary: true })
   public id: number
 

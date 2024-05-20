@@ -15,6 +15,7 @@ import Comentario from './Comentario'
 import Chat from './Chat'
 
 export default class EjecucionServicio extends BaseModel {
+  public static table = 'ejecucion_servicios'
   @column({ isPrimary: true })
   public id: number
 
@@ -35,12 +36,12 @@ export default class EjecucionServicio extends BaseModel {
   public cliente: BelongsTo<typeof Cliente>
 
   @hasMany(() => Comentario, {
-    foreignKey: 'Eservicio_id',
+    foreignKey: 'Ej_servicio_id',
   })
   public comentarios: HasMany<typeof Comentario>
 
   @hasOne(() => Chat, {
-    foreignKey: 'Eservicio_id',
+    foreignKey: 'Ej_servicio_id',
   })
   public chats: HasOne<typeof Chat>
 

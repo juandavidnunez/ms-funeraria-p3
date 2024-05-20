@@ -4,6 +4,7 @@ import ServicioxPlan from './ServicioxPlan'
 import Suscripcion from './Suscripcion'
 
 export default class Plan extends BaseModel {
+  public static table = 'planes'
   @column({ isPrimary: true })
   public id: number
 
