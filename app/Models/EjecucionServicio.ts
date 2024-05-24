@@ -20,6 +20,9 @@ export default class EjecucionServicio extends BaseModel {
   public id: number
 
   @column()
+  public descripcion: string
+
+  @column()
   public servicio_id: number
 
   @column()

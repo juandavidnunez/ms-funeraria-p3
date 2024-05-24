@@ -11,10 +11,10 @@ export default class Comentario extends BaseModel {
   public contenido: string
 
   @column()
-  public Eservicio_id: number
+  public Ej_servicio_id: number
 
   @belongsTo(() => EjecucionServicio, {
-    foreignKey: 'Eservicio_id',
+    foreignKey: 'Ej_servicio_id',
   })
   public EjecucionServicios: BelongsTo<typeof EjecucionServicio>
 

@@ -8,7 +8,16 @@ export default class Conductor extends BaseModel {
   public id: number
 
   @column()
-  public usuario_id: number
+  public licencia: string
+
+  @column()
+  public categoria_licencia: string
+
+  @column()
+  public expliracion_licencia: DateTime
+
+  @column()
+  public user_id: number
 
   @hasOne(() => Usuario)
   public usuario: HasOne<typeof Usuario>

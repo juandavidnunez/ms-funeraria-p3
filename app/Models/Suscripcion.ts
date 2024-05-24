@@ -9,6 +9,21 @@ export default class Suscripcion extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
+  @column.dateTime()
+  public fecha_inicio: DateTime
+
+  @column.dateTime()
+  public fecha_fin: DateTime
+
+  @column()
+  public numero_beneficiaros: number
+
+  @column()
+  public cliente_id: number
+
+  @column()
+  public plan_id: number
+
   @belongsTo(() => Plan, {
     foreignKey: 'plan_id',
   })

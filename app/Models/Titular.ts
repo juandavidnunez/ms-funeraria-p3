@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, HasMany, hasMany, HasOne, hasOne } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, belongsTo, column, HasMany, hasMany, HasOne, hasOne } from '@ioc:Adonis/Lucid/Orm'
 import Beneficiario from './Beneficiario'
 import Cliente from './Cliente'
 
@@ -9,10 +9,15 @@ export default class Titular extends BaseModel {
   public id: number
 
   @column()
+  public activo: boolean
+
+  @column()
   public cliente_id: number
 
-  @hasOne(() => Cliente)
-  public usuario: HasOne<typeof Cliente>
+  @belongsTo(() => Cliente, {
+    foreignKey: 'client_id'
+  })
+  public client: BelongsTo<typeof Cliente>
 
   @hasMany(()=>Beneficiario,{
     foreignKey: 'titular_id',

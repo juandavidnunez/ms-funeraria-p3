@@ -9,10 +9,10 @@ export default class Chat extends BaseModel {
   public id: number
 
   @column()
-  public Eservicio_id: number
+  public Ej_servicio_id: number
 
   @belongsTo(() => EjecucionServicio, {
-    foreignKey: 'Eservicio_id',
+    foreignKey: 'Ej_servicio_id',
   })
   public ejecicuionservicios: BelongsTo<typeof EjecucionServicio>
 

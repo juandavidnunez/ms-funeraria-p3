@@ -12,7 +12,7 @@ export default class Cliente extends BaseModel {
   public id: number
 
   @column()
-  public usuario_id: number
+  public user_id: number
 
   @hasOne(() => Usuario)
   public usuario: HasOne<typeof Usuario>
@@ -22,10 +22,10 @@ export default class Cliente extends BaseModel {
   })
   public titular: HasOne<typeof Titular>
 
-  @hasMany(() => Beneficiario, {
+  @hasOne(() => Beneficiario, {
     foreignKey: 'cliente_id',
   })
-  public beneficiarios: HasMany<typeof Beneficiario>
+  public beneficiarios: HasOne<typeof Beneficiario>
 
   @hasMany(() => EjecucionServicio, {
     foreignKey: 'cliente_id',

@@ -10,8 +10,14 @@ export default class Mensaje extends BaseModel {
   @column()
   public contenido: string
 
+  @column.dateTime()
+  public fecha_mensaje: DateTime
+
   @column()
   public chat_id: number
+
+  @column()
+  public user_id: string
 
   @belongsTo(() => Chat, {
     foreignKey: 'chat_id',
