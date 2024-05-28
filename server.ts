@@ -9,6 +9,7 @@
 | by AdonisJs service providers for custom code.
 |
 */
+import 'dotenv/config';
 
 import 'reflect-metadata'
 import sourceMapSupport from 'source-map-support'

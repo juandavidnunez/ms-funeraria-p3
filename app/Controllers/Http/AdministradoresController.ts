@@ -1,48 +1,77 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Administrador from 'App/Models/Administrador'
-import { administradorValidation } from 'App/Validators/AdministradoresValidator'
+import axios from 'axios'
+import Env from '@ioc:Adonis/Core/Env'
+import { schema, rules } from '@ioc:Adonis/Core/Validator'
 
-export default class AdministradoresController {
-  // Create a new administrator
+// Validador para usuarios
+const usuarioValidation = schema.create({
+  userId: schema.string({}, [
+    rules.required(),
+  ]),
+})
 
-  public async create({ request }: HttpContextContract) {
-    const body = await request.validate(administradorValidation);
-    const theAdministrador = await Administrador.create(body)
-    return theAdministrador
-}
+export default class UsuariosController {
+  private apiUrl = Env.get('MICROSERVICE_URL', 'http://localhost:8181/api')
 
-  // Get all administrators
-
-  public async findAll({ request }: HttpContextContract) {
-    const page = request.input('page', 1)
-    const perPage = request.input('perPage', 20)
-    let administradores: Administrador[] = await Administrador.query().paginate(page, perPage)
-    return administradores
+  // Crear un nuevo usuario
+  public async create({ request, response }: HttpContextContract) {
+    try {
+      const body = await request.validate({ schema: usuarioValidation })
+      const apiResponse = await axios.post(`${this.apiUrl}/users`, body)
+      response.status(201).send(apiResponse.data)
+    } catch (error) {
+      console.error('Error al crear el usuario:', error)
+      response.status(error.response?.status || 500).send(error.response?.data || 'Error al crear el usuario')
+    }
   }
 
-  // Get an administrator by id
+  // Obtener todos los usuarios
+  public async findAll({ response }: HttpContextContract) {
+    try {
+      const adonisResponse = await axios.get('http://localhost:8181/api/users', {
+       
+      })
 
-  public async findById({ params }: HttpContextContract) {
-    const theAdministrador = await Administrador.findOrFail(params.id)
-    return theAdministrador
+      // Devolver la respuesta de Adonis
+      response.status(adonisResponse.status).send(adonisResponse.data)
+    } catch (error) {
+      // Manejar errores
+      console.error('Error al consumir la API de Adonis:', error)
+      response.status(error.response?.status || 500).send('Error al consumir la API de Adonis')
+    }
   }
 
-  /* Update an administrator by id
+  // Obtener un usuario por id
+  public async findById({ params, response }: HttpContextContract) {
+    try {
+      const apiResponse = await axios.get(`${this.apiUrl}/users/${params.id}`)
+      response.status(200).send(apiResponse.data)
+    } catch (error) {
+      console.error('Error al obtener el usuario:', error)
+      response.status(error.response?.status || 500).send(error.response?.data || 'Usuario no encontrado')
+    }
+  }
 
-  public async update({ params, request }: HttpContextContract) {
-    const body = await request.validate(administradorValidation);
-    const theAdministrador = await Administrador.findOrFail(params.id)
-    theAdministrador.email = body.email
-    theAdministrador.name = body.name
-    theAdministrador.age = body.age
-    return theAdministrador.save()
-}*/
+  // Actualizar un usuario por id
+  public async update({ params, request, response }: HttpContextContract) {
+    try {
+      const body = await request.validate({ schema: usuarioValidation })
+      const apiResponse = await axios.put(`${this.apiUrl}/users/${params.id}`, body)
+      response.status(200).send(apiResponse.data)
+    } catch (error) {
+      console.error('Error al actualizar el usuario:', error)
+      response.status(error.response?.status || 500).send(error.response?.data || 'Error al actualizar el usuario')
+    }
+  }
 
-  // Delete an administrator by id
-
+  // Eliminar un usuario por id
   public async delete({ params, response }: HttpContextContract) {
-    const theAdministrador = await Administrador.findOrFail(params.id)
-    response.status(204)
-    return await theAdministrador.delete()
+    try {
+      await axios.delete(`${this.apiUrl}/users/${params.id}`)
+      response.status(204).send('')
+    } catch (error) {
+      console.error('Error al eliminar el usuario:', error)
+      response.status(error.response?.status || 500).send(error.response?.data || 'Error al eliminar el usuario')
+    }
   }
 }

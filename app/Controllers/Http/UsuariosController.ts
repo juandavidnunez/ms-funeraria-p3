@@ -7,7 +7,7 @@ export default class UsuariosController {
     try {
       let body = request.body()
       // Hacer una solicitud POST a la API de Adonis
-      const adonisResponse = await axios.post('', {
+      const adonisResponse = await axios.post('http://localhost:8181/public/security/login', {
         email: body.email,
         password: body.password,
       })
