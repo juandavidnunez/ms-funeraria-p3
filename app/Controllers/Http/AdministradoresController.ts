@@ -11,67 +11,136 @@ const usuarioValidation = schema.create({
 })
 
 export default class UsuariosController {
-  private apiUrl = Env.get('MICROSERVICE_URL', 'http://localhost:8181/api')
+  private apiUrl: string;
+
+  constructor() {
+    this.apiUrl = 'http://localhost:8181/api';
+  }
 
   // Crear un nuevo usuario
   public async create({ request, response }: HttpContextContract) {
     try {
-      const body = await request.validate({ schema: usuarioValidation })
-      const apiResponse = await axios.post(`${this.apiUrl}/users`, body)
-      response.status(201).send(apiResponse.data)
+      const body = request.only(['name', 'email', 'password']);
+      const token = request.header('Authorization');
+      if (!token) {
+        return response.status(401).send('Token de acceso faltante');
+      }
+
+      const adonisResponse = await axios.post(
+        `${this.apiUrl}/users`,
+        {
+          name: body.name,
+          email: body.email,
+          password: body.password,
+        },
+        {
+          headers: {
+            'Authorization': token,
+          },
+        }
+      );
+
+      response.status(adonisResponse.status).send(adonisResponse.data);
     } catch (error) {
-      console.error('Error al crear el usuario:', error)
-      response.status(error.response?.status || 500).send(error.response?.data || 'Error al crear el usuario')
+      console.error('Error al consumir la API de Adonis:', error);
+      response.status(error.response?.status || 500).send('Error al consumir la API de Adonis');
     }
   }
 
-  // Obtener todos los usuarios
-  public async findAll({ response }: HttpContextContract) {
+  // Listar todos los usuarios
+  public async findAll({ request, response }: HttpContextContract) {
     try {
-      const adonisResponse = await axios.get('http://localhost:8181/api/users', {
-       
-      })
+      const token = request.header('Authorization');
+      if (!token) {
+        return response.status(401).send('Token de acceso faltante');
+      }
 
-      // Devolver la respuesta de Adonis
-      response.status(adonisResponse.status).send(adonisResponse.data)
+      const adonisResponse = await axios.get(`${this.apiUrl}/users`, {
+        headers: {
+          'Authorization': token,
+        },
+      });
+
+      response.status(adonisResponse.status).send(adonisResponse.data);
     } catch (error) {
-      // Manejar errores
-      console.error('Error al consumir la API de Adonis:', error)
-      response.status(error.response?.status || 500).send('Error al consumir la API de Adonis')
+      console.error('Error al consumir la API de Adonis:', error);
+      response.status(error.response?.status || 500).send('Error al consumir la API de Adonis');
     }
   }
 
   // Obtener un usuario por id
-  public async findById({ params, response }: HttpContextContract) {
+  public async findById({ params, request, response }: HttpContextContract) {
     try {
-      const apiResponse = await axios.get(`${this.apiUrl}/users/${params.id}`)
-      response.status(200).send(apiResponse.data)
+      const token = request.header('Authorization');
+      if (!token) {
+        return response.status(401).send('Token de acceso faltante');
+      }
+
+      const apiResponse = await axios.get(`${this.apiUrl}/users/${params.id}`, {
+        headers: {
+          'Authorization': token,
+        },
+      });
+
+      response.status(200).send(apiResponse.data);
     } catch (error) {
-      console.error('Error al obtener el usuario:', error)
-      response.status(error.response?.status || 500).send(error.response?.data || 'Usuario no encontrado')
+      console.error('Error al obtener el usuario:', error);
+      response.status(error.response?.status || 500).send(error.response?.data || 'Usuario no encontrado');
     }
   }
 
   // Actualizar un usuario por id
   public async update({ params, request, response }: HttpContextContract) {
     try {
-      const body = await request.validate({ schema: usuarioValidation })
-      const apiResponse = await axios.put(`${this.apiUrl}/users/${params.id}`, body)
-      response.status(200).send(apiResponse.data)
+      const body = request.only(['name', 'email', 'password']);
+      const token = request.header('Authorization');
+      if (!token) {
+        return response.status(401).send('Token de acceso faltante');
+      }
+
+      const adonisResponse = await axios.put(
+        `${this.apiUrl}/users/${params.id}`,
+        {
+          name: body.name,
+          email: body.email,
+          password: body.password,
+        },
+        {
+          headers: {
+            'Authorization': token,
+          },
+        }
+      );
+
+      response.status(adonisResponse.status).send(adonisResponse.data);
     } catch (error) {
-      console.error('Error al actualizar el usuario:', error)
-      response.status(error.response?.status || 500).send(error.response?.data || 'Error al actualizar el usuario')
+      console.error('Error al actualizar el usuario:', error);
+      response.status(error.response?.status || 500).send(error.response?.data || 'Error al actualizar el usuario');
     }
   }
 
-  // Eliminar un usuario por id
-  public async delete({ params, response }: HttpContextContract) {
+  
+  public async delete({ params, request, response }: HttpContextContract) {
     try {
-      await axios.delete(`${this.apiUrl}/users/${params.id}`)
-      response.status(204).send('')
+      const token = request.header('Authorization');
+      if (!token) {
+        return response.status(401).send('Token de acceso faltante');
+      }
+  
+      // Hacer la solicitud de eliminación
+      await axios.delete(`${this.apiUrl}/users/${params.id}`, {
+        headers: {
+          'Authorization': token,
+        },
+      });
+  
+      // Si la solicitud de eliminación tiene éxito, respondemos con un mensaje de éxito
+      response.status(200).send('Usuario eliminado correctamente');
+      
     } catch (error) {
-      console.error('Error al eliminar el usuario:', error)
-      response.status(error.response?.status || 500).send(error.response?.data || 'Error al eliminar el usuario')
+      console.error('Error al eliminar el usuario:', error);
+      response.status(error.response?.status || 500).send(error.response?.data || 'Error al eliminar el usuario');
     }
   }
+    
 }
