@@ -10,23 +10,26 @@ const usuarioValidation = schema.create({
   ]),
 })
 
-export default class UsuariosController {
+export default class AdministradoresController {
   private apiUrl: string;
 
   constructor() {
     this.apiUrl = 'http://localhost:8181/api';
   }
 
-  // Crear un nuevo usuario
+
   public async create({ request, response }: HttpContextContract) {
     try {
       const body = request.only(['name', 'email', 'password']);
       const token = request.header('Authorization');
+      const toke=token
+  
       if (!token) {
         return response.status(401).send('Token de acceso faltante');
       }
-
-      const adonisResponse = await axios.post(
+  
+      // Crear usuario
+      const userResponse = await axios.post(
         `${this.apiUrl}/users`,
         {
           name: body.name,
@@ -39,13 +42,40 @@ export default class UsuariosController {
           },
         }
       );
+  
+      // Obtener el ID del usuario desde la respuesta
+      const userId = userResponse.data._id;
+  
+      // Verificar que el ID del usuario no sea undefined
+      if (!userId) {
+        return response.status(500).send('Error al crear el usuario, ID no encontrado');
+      }
+      console.log(toke)
 
-      response.status(adonisResponse.status).send(adonisResponse.data);
+      // Asignar rol al usuario creado
+      const roleResponse = await axios.put(
+        `${this.apiUrl}/users/${userId}/role/664f1e495294c54dc1d03e54`,
+        {},
+        {
+          headers: {
+            'Authorization': toke,
+          },
+        }
+      );
+  
+      // Responder con los datos del rol asignado
+      response.status(roleResponse.status).send(roleResponse.data);
     } catch (error) {
       console.error('Error al consumir la API de Adonis:', error);
-      response.status(error.response?.status || 500).send('Error al consumir la API de Adonis');
+  
+      // Manejo de errores con detalles
+      const status = error.response?.status || 500;
+      const message = error.response?.data || 'Error al consumir la API de Adonis';
+  
+      response.status(status).send(message);
     }
   }
+  
 
   // Listar todos los usuarios
   public async findAll({ request, response }: HttpContextContract) {
