@@ -3,6 +3,7 @@ import { BaseModel, BelongsTo, HasMany, belongsTo, column, hasMany } from '@ioc:
 import Pago from './Pago'
 import Plan from './Plan'
 import Cliente from './Cliente'
+import PromocionSuscripcion from './PromacionSuscripcion'
 
 export default class Suscripcion extends BaseModel {
   public static table = 'suscripciones'
@@ -23,6 +24,12 @@ export default class Suscripcion extends BaseModel {
 
   @column()
   public plan_id: number
+
+  @hasMany(() => PromocionSuscripcion, {
+    foreignKey: 'promocion_id', 
+  })
+  public promocionSuscripciones: HasMany<typeof PromocionSuscripcion>
+  
 
   @belongsTo(() => Plan, {
     foreignKey: 'plan_id',
