@@ -33,8 +33,8 @@ export default class SalasController {
     const theSala = await Sala.findOrFail(params.id)
     theSala.nombre = body.nombre
     theSala.capacidad = body.capacidad
-    theSala.disponibilidad = body.disponibilidad ?? theSala.disponibilidad
-    theSala.sedes_id = body.sede_id
+    theSala.disponibilidad = body.disponibilidad
+    theSala.sede_id = body.sede_id
     return theSala.save()
   }
 

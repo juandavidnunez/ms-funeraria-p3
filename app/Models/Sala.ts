@@ -17,7 +17,7 @@ export default class Sala extends BaseModel {
   public disponibilidad: boolean
 
   @column()
-  public sedes_id: number
+  public sede_id: number
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
