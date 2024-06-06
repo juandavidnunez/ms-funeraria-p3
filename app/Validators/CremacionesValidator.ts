@@ -4,10 +4,10 @@ export const cremacionValidation = {
   schema: schema.create({
     ubicacion: schema.string({}, [
       rules.required(),
-      rules.maxLength(30)
+      rules.maxLength(300)
     ]),
-    fecha_hora: schema.date({ format: 'yyyy-MM-dd HH:mm:ss' }, [
-      rules.required()
+    fecha_hora: schema.date({ format: "yyyy-MM-dd" }, [
+      rules.afterOrEqual('today')
     ]),
     servicio_id: schema.number([
       rules.required(),

@@ -6,7 +6,7 @@ export const comentarioValidation = {
       rules.required(),
       rules.maxLength(255)
     ]),
-    Eservicio_id: schema.number([
+    Ej_servicio_id: schema.number([
       rules.required(),
       rules.exists({ table: 'ejecucion_servicios', column: 'id' })
     ])

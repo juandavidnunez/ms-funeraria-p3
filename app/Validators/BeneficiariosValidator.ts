@@ -2,6 +2,9 @@ import { schema, rules } from '@ioc:Adonis/Core/Validator'
 
 export const beneficiarioValidation = {
     schema: schema.create({
+        activado: schema.boolean([
+          rules.required()
+        ]),
         titular_id: schema.number([
           rules.required(),
           rules.exists({ table: 'titulares', column: 'id' }) // Asumiendo que 'titulares' es la tabla asociada al titular

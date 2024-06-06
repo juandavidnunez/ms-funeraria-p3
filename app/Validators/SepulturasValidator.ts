@@ -6,8 +6,8 @@ export const sepulturaValidation = {
       rules.required(),
       rules.maxLength(30)
     ]),
-    fecha_hora: schema.date({ format: 'yyyy-MM-dd HH:mm:ss' }, [
-      rules.required()
+    fecha_hora: schema.date({ format: "yyyy-MM-dd" }, [
+      rules.afterOrEqual('today')
     ]),
     servicio_id: schema.number([
       rules.required(),

@@ -20,6 +20,7 @@ export const sedeValidation = {
         correo_electronico: schema.string({}, [
           rules.required(),
           rules.email(),
+          rules.maxLength(255),
           rules.unique({
             table: 'sedes',
             column: 'correo_electronico',

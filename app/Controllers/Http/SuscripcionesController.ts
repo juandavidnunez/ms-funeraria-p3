@@ -1,10 +1,11 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Suscripcion from 'App/Models/Suscripcion'
+import { suscripcionValidation } from 'App/Validators/SuscripcionesValidator'
 
 export default class SuscripcionesController {
   // Create
   public async create({ request }: HttpContextContract) {
-    let body = request.body()
+    const body = await request.validate(suscripcionValidation)
     const theSuscripcion = await Suscripcion.create(body)
     return theSuscripcion
   }
@@ -23,6 +24,16 @@ export default class SuscripcionesController {
     const theSuscripcion = await Suscripcion.findOrFail(params.id)
     return theSuscripcion
   }
+
+  // Update a servicios by id
+
+  public async update({ params, request }: HttpContextContract) {
+    const body = await request.validate(suscripcionValidation);
+    const theSuscripcion = await Suscripcion.findOrFail(params.id)
+    theSuscripcion.numero_beneficiaros = body.numero_beneficiaros
+    theSuscripcion.plan_id = body.plan_id
+    return theSuscripcion.save()
+}
 
   // Delete
 

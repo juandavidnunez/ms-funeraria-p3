@@ -16,6 +16,9 @@ export default class Pago extends BaseModel {
   @column()
   public metodo_pago: string
 
+  @column()
+  public suscripcion_id: number
+
   @belongsTo(() => Suscripcion, {
     foreignKey: 'suscripcion_id',
   })

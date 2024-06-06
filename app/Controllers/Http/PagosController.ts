@@ -46,6 +46,7 @@ export default class PagosController {
     const body = await request.validate(pagoValidation)
     const thePago = await Pago.findOrFail(params.id)
     thePago.monto = body.monto
+    thePago.metodo_pago = body.metodo_pago
     return thePago.save()
   }
 

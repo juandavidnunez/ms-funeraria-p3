@@ -35,8 +35,7 @@ export default class TrasladosController {
     const theTraslado = await Traslado.findOrFail(params.id)
     theTraslado.origen = body.origen
     theTraslado.destino = body.destino
-    theTraslado.fecha_hora = body.fecha_hora
-    theTraslado.tipo_vehiculo = body.tipo_vehiculo
+    theTraslado.fecha = body.fecha
     return theTraslado.save()
   }
 

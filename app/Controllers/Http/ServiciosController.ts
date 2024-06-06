@@ -31,10 +31,8 @@ export default class ServiciosController {
   public async update({ params, request }: HttpContextContract) {
     const body = await request.validate(servicioValidation);
     const theServicio = await Servicio.findOrFail(params.id)
-    theServicio.nombre = body.nombre
-    theServicio.precio = body.precio
     theServicio.descripcion = body.descripcion ?? theServicio.descripcion
-    theServicio.duracion = body.duracion ?? theServicio.duracion
+    theServicio.estado_servicio = body.estado_servicio
     return theServicio.save()
 }
 

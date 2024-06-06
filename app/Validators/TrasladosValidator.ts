@@ -10,10 +10,8 @@ export const trasladoValidation = {
       rules.required(),
       rules.maxLength(30)
     ]),
-    fecha_hora: schema.string({}, [
-      rules.required(),
-      // Validar el formato de fecha y hora personalizado
-      rules.regex(/^(\d{4})-(\d{2})-(\d{2})\s(\d{2}):(\d{2}):(\d{2})$/)
+    fecha: schema.date({ format: "yyyy-MM-dd" }, [
+      rules.afterOrEqual('today')
     ]),
     servicio_id: schema.number([
       rules.required(),

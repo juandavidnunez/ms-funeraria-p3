@@ -8,7 +8,7 @@ export default class extends BaseSchema {
       table.increments('id')
       table.string('origen', 255).notNullable()
       table.string('destino', 255).notNullable()
-      table.dateTime('fecha_hora').notNullable()
+      table.dateTime('fecha').notNullable()
       table
         .integer('servicio_id')
         .unsigned()
