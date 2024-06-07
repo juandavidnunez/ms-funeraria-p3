@@ -47,4 +47,5 @@ export default class Servicio extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+  traslado_id: number
 }

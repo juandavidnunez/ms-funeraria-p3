@@ -13,10 +13,12 @@ export const trasladoValidation = {
     fecha: schema.date({ format: "yyyy-MM-dd" }, [
       rules.afterOrEqual('today')
     ]),
-    servicio_id: schema.number([
-      rules.required(),
-      rules.exists({ table: 'servicios', column: 'id' })
-    ])
+    servicio: schema.object.optional().members({
+      id:schema.number([rules.exists({
+        table:"servicios",
+        column:"id"
+      })])
+    })
   })
 }
 

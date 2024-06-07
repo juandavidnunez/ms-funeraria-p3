@@ -1,6 +1,7 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Traslado from 'App/Models/Traslado'
 import { trasladoValidation } from 'App/Validators/TrasladosValidator'
+import Servicio from 'App/Models/Servicio'
 
 
 export default class TrasladosController {
@@ -9,6 +10,11 @@ export default class TrasladosController {
   public async create({ request }: HttpContextContract) {
     const body = await request.validate(trasladoValidation)
     const theTraslado = await Traslado.create(body)
+    if(body.servicio){
+      let theServicio:Servicio = await Servicio.findOrFail(body.servicio.id)
+      theServicio.traslado_id=theTraslado.id
+      theServicio.save()
+    }
     return theTraslado
   }
 
